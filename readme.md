@@ -35,7 +35,7 @@ User will fill out the question asked on terminal . Also client side will also a
 After all the answer will be recieved on server side, next step of the process is Calculation of chances of having the Virus.
 Server will segregate all the answer received and start calculating the chances.
 
-##Algorithm for chances
+## Algorithm for chances
 
 This section needs alot of improvement for more accurate answers.
 Well, We have created a pool for every answer , in pool there are different conditions based on the research. Whenever any of the condition will be satisfied for given answer, it will add points according to that condition to a global point variable .
