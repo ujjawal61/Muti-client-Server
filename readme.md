@@ -1,31 +1,43 @@
 # MultiClient-Sever
-Its a simple multi-client server that runs on various devices . Server can select the particular client from the list shown . Client can input the data asked by server and will write that data into the output.txt.
+Every country reacts differently to the COVID-19 pandemic. Some governments may make late decisions to protect their people. This problem is due to the long incubation time of the virus (few weeks), but also to the lack of screenings. The tests are expensive and may take time, so in order to be more efficient in the fight against the virus, some countries neglect them.
+
+So we built an application where any user could signal if they have any symptom related to the COVID-19 disease. Anonymously, an user informs his age, gender, travel history and symptoms. This information, plus their geolocation identified by their IP address, are transmitted to a server. This server is a database that gather all users information and their location, and, thanks to an algorithm, computes the chance that a given user is infected. 
 
 ## Requirements
-Our project will run on Python 3.8.2 .If you dont want have the required version.You can download it via cmd (as administrator) ,just run following coommand:
+Our project will run on Python 3.8.2 .If you dont have the required version.You can download it via cmd (as administrator) ,just run following coommand:
 ```
 python -m pip install --upgrade pip
 ```
-## Server
-Well, we have provided the server.py file. Open cmd prompt , run ```python server.py``` or ``` python3 server.py```(if showing some error) .This is will create your server and if doesnt show any error(i hope it doesnt) ,then your server is up and listening for different connection from different IPs.
+We also workign with "pickle", "requests" , "json" libraries. to install these libraries use following commands on comamand prompt by firstly adding the path of python script 
+```
+python -m pip install requests
+python -m pip install json
+python -m pip install pickle
 
-## Client
-We have also provided you the client.py file. You have to change the ip address in client file.You can know your ip address by typing ```ipconfig``` for windows. And update the ip address in client file.
-Now open as many cmd propmt as you want. And run the client.py using ```python client.py``` or ``` python3 client.py```(if showing some error) on each cmd.
-And you can see, connection estabilished will be shown on server window. And thats how you can know your client server is running perfect.
+```
+## How to run the project
+First we have to get the server running ,so that it can listen different connection ffrom different clients. To run the server, open your command prompt and type the command
+```
+python server.py
+```
+If you have the required version and libraries, then it should be run properly and will show
+```
+Server is running and listening for connections.
 
+```
+Now for client side, run the client flie by typing
+```
+python client.py
+```
+If everything works fine, then fist step of establishing the connection will be done . And we can proceed to next step of filling out the survey on client side.
+User will fill out the answer question asked on terminal . Also client side will also automatically detects the Location of the user. After filling out the survey, all the answer will be sent to Server side for calculation part.
 
-## Lets Run some command
-### list
-As, you have already seen that Connection Established will be shown on server windows.Now, you press the enter it will start Custom Interactive Shell on Seerver side. We'll take about Custom Interactive Shell little bit later. Now when you type ``` list``` besides ```coronavirus->```,and press enter, it will show the list of clients that are connected to the server. Format for the list will be like,for eg: ```0  10.8.6.22  50456``` 
-here,"0" is unique id assigned by the server to each client.
-     "10.8.6.22" is the ip address of the client
-     "50456" is the port number
+After all the answer will be recieved on server side, next step of the process is Calculation of chances of having the Virus.
+Server will segregate all the answer received and start calculating the chances.
 
-### select 0
-Now, when you type ```select <id>```, for eg, "select 0" , it will select the 0th client and start sending data. 
-on Client side, it will ask for different information from the user like "Name , Age, Profession , Message". and sending the data to Server. on server side, it will show " Writing data to file". and client side it will show "Done!!You are good to go"
+##Algorithm for chances
+This section needs alot of improvement for more accurate answers.
+Well, We have created a pool for every answer , in pool there are different conditions based on the research. Whenever any of the condition will be satisfied for given answer, it will add points related to that condition to a global point variable .This will be done for every answer(age,travel-history,etc) and keeps updating the point variable.In the end,it will divides the point variable by 80( 80 because there are 8 parameter).
+Calculated answer will get through another if-else conditon , that will finally generate the chances based on answer calculated.
 
-### printdata
-If you want you can select different client and get their data too!!
-Now, if you want to check for the data that written to file. Just type,```printdata``` and press enter. It will show you all the data written to text file. 
+Then after this ,chances will be transferred to client side and will be shown alongside with some precautions and prevention tips.
